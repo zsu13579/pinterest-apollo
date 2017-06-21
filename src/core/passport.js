@@ -88,7 +88,7 @@ passport.use(new GithubStrategy({
   }else{
 	const user = await User.create({
 	  id: profile.id,
-	  email: profile._json.email,
+	  email: profile.username,
 	  logins: [
 		{ name: loginName, key: profile.id },
 	  ],
@@ -106,6 +106,10 @@ passport.use(new GithubStrategy({
 		{ model: UserProfile, as: 'profile' },
 	  ],
 	});
+	done(null, {
+          id: user.id,
+          email: user.email,
+        });
   }; 
   };
   fooBar().catch(done);
